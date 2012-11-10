@@ -17,7 +17,6 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
-error_log('UNINSTALL!!!L!L!')
 	// If uninstall not called from WordPress exit
 	if( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 		exit();

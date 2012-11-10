@@ -157,6 +157,7 @@ class CWS_FlickrAdmin {
 		return serialize( $this->consumer->getRequestToken( array( 'scope' => implode(' ', $this->scopes) ) ) );
 	}    
 
+
 	/**
 	 *
 	 * Return Grant Link. TODO: make better link, with para explaining what's about to happen.
