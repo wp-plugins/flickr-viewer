@@ -38,6 +38,7 @@ Includes, Widgets & Shortcodes
 4. Authorize your Flickr Account
 5. Place shortcode into page / post
 
+
 == Shortcodes ==
 
 *[cws_flickr_recent] Will display recent public photos. 

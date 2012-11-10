@@ -29,7 +29,7 @@ Zend_Loader::loadClass( 'Zend_Service_Flickr' );
  * 	Main Class to talk to Flickr API
  *
  */
-class CWS_FlickrApi extends Zend_Service_Flickr{
+class CWS_FlickrApi extends Zend_Service_Flickr {
 
 	var $debug = TRUE;
 	
@@ -162,7 +162,7 @@ class CWS_FlickrApi extends Zend_Service_Flickr{
 	        try	{
 	        		
 			// Setup Zend Cache for 24hrs...
-			// TODO: make cache duration user configurable...
+			// TODO: make cache duration user configurable in Pro version...
 			$frontendOptions = array( 'lifetime' => 86400, 'automatic_serialization' => true ); 
 			$backendOptions  = array( 'cache_dir' => WPFLICKR_PLUGIN_PATH . 'cache/' ); 
 			$cache = Zend_Cache::factory( 'Core', 'File', $frontendOptions, $backendOptions );

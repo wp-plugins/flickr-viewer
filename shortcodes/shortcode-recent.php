@@ -17,9 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 function cws_flickr_shortcode_recent( $atts ) {
-	
-	error_log('booooo');
-	
+		
 	// Allowed Sizes...
 	$allowed_sizes = array(	'Square',
 				'Large Square',

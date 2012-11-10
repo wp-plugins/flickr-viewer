@@ -29,7 +29,6 @@ if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @category 	Admin
  * @package 	WPFlickr
  */
-
 function cws_flickr_admin_scripts() 
 {
 	wp_enqueue_script( 'cws-flickr-plugin-admin', WPFLICKR_PLUGIN_URL . 'js/admin.js' );
@@ -39,6 +38,7 @@ function cws_flickr_admin_scripts()
 										'cacheconfirm'	=> __( 'Are you sure you want to delete the cache?', 'cws_flickr' ),
 									) );
 }
+
 
 /**
  * Admin Menus
@@ -52,7 +52,7 @@ function cws_flickr_add_page() {
 	// Register options page
 	$page = add_options_page(	
 					__( 'Flickr Options', 'cws_flickr' ),
-					__( 'Flickr', 'cws_flickr' ),
+					__( 'Flickr Viewer', 'cws_flickr' ),
 					'manage_options', 
 					'cws_flickr', 
 					'cws_flickr_options_page' );
@@ -60,6 +60,7 @@ function cws_flickr_add_page() {
    // Using registered $page handle to hook stylesheet loading 
    add_action( 'admin_print_styles-' . $page, 'cws_flickr_admin_scripts' );								
 }
+
 
 /**
  *
@@ -104,8 +105,7 @@ function cws_flickr_options_page() {
 	
 						header( "Location: " . CWS_WPFlickr::cws_get_admin_url( '/options-general.php' ) . "?page=cws_flickr" );
 					}
-					catch (Zend_Oauth_Exception $ex) {
-						// header( "Location: " . cws_get_admin_url( '/options-general.php' ) . "?page=cws_gpp" );
+					catch ( Zend_Oauth_Exception $ex ) {
 						
 						// Nuke request token...
 						delete_option('CWS_FLICKR_REQUEST_TOKEN');						
@@ -153,8 +153,6 @@ function cws_flickr_options_page() {
 				}
 		}
 		else {
-			// echo 'Display Error MEssage!';			
-			// $WPFlickr->showAdminMessages( 'Param' );
 			$WPFlickr->showAdminMessages( $WPFlickr->preflight_errors );			
 		}
 ?>		
@@ -236,6 +234,7 @@ function cws_flickr_meta_box_feedback() {
 <?php
 	
 }
+
 
 /**
  *

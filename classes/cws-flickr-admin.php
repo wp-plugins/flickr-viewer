@@ -25,7 +25,6 @@ if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *  Deals with Admin side of things. OAuth
  *
  */	
-// class CWS_GPPAdmin {
 class CWS_FlickrAdmin {
 
 	var $debug = TRUE;
@@ -45,49 +44,40 @@ class CWS_FlickrAdmin {
 	var $zend_loader_present = FALSE;
 	
 
-    function __construct( $preflight_check ) 
-    {	
-	if( $this->debug ) error_log( 'Inside: CWS_GPPAdmin::__construct()' );
-
-
-        include_once 'Zend/Loader.php';
-
-	Zend_Loader::loadClass( 'Zend_Gdata_HttpClient' );
-	Zend_Loader::loadClass( 'Zend_Gdata_Photos' );
-	Zend_Loader::loadClass( 'Zend_Oauth_Consumer' );
-	Zend_Loader::loadClass( 'Zend_Http_Client' );
-	Zend_Loader::loadClass( 'Zend_Gdata_Gbase' );
-        
-        // Get tokens from db
-        $this->request_token 	= get_option( 'CWS_FLICKR_REQUEST_TOKEN' );
-        $this->access_token	= get_option( 'CWS-FLICKR-ACCESS_TOKEN' );        
-	$this->consumer_key 	= '1ba95822668e1181e229796002c5b2b5';
-	$this->consumer_secret  = 'ee228c3ab73762a9';
-	$this->return_to 	= CWS_WPFlickr::cws_get_admin_url('/options-general.php') . '?page=cws_flickr&cws_oauth_return=true' ;
-	$this->perms = array( 'read');	/* 'read', 'write', 'delete', etc... */
-
+	function __construct( $preflight_check ) 
+	{	
+		if( $this->debug ) error_log( 'Inside: CWS_GPPAdmin::__construct()' );
+		
+		
+		include_once 'Zend/Loader.php';
+		
+		Zend_Loader::loadClass( 'Zend_Gdata_HttpClient' );
+		Zend_Loader::loadClass( 'Zend_Gdata_Photos' );
+		Zend_Loader::loadClass( 'Zend_Oauth_Consumer' );
+		Zend_Loader::loadClass( 'Zend_Http_Client' );
+		Zend_Loader::loadClass( 'Zend_Gdata_Gbase' );
+		
+		// Get tokens from db
+		$this->request_token 	= get_option( 'CWS_FLICKR_REQUEST_TOKEN' );
+		$this->access_token	= get_option( 'CWS-FLICKR-ACCESS_TOKEN' );        
+		$this->consumer_key 	= '1ba95822668e1181e229796002c5b2b5';
+		$this->consumer_secret  = 'ee228c3ab73762a9';
+		$this->return_to 	= CWS_WPFlickr::cws_get_admin_url('/options-general.php') . '?page=cws_flickr&cws_oauth_return=true' ;
+		$this->perms = array( 'read');	/* 'read', 'write', 'delete', etc... */
+	
 		// Prepare array for OAuth request
 		try{
 			$this->oauth_options = array(
-/*
-							  'requestScheme'        => Zend_Oauth::REQUEST_SCHEME_HEADER,
-							  'version'              => '1.0',
-							  'consumerKey'          => $this->consumer_key,
-							  'consumerSecret'       => $this->consumer_secret,
-							  'signatureMethod'      => 'HMAC-SHA1',
-							  'callbackUrl'          => $this->return_to,
-							  'requestTokenUrl'      => 'https://www.google.com/accounts/OAuthGetRequestToken',
-							  'userAuthorizationUrl' => 'https://www.google.com/accounts/OAuthAuthorizeToken',
-							  'accessTokenUrl'       => 'https://www.google.com/accounts/OAuthGetAccessToken'
-*/
 							    'callbackUrl' 	=> $this->return_to,
 							    'siteUrl' 		=> 'http://www.flickr.com/services/oauth',
 							    'consumerKey' 	=> $this->consumer_key,
 							    'consumerSecret' 	=> $this->consumer_secret,
 							    'requestTokenUrl' 	=> 'http://www.flickr.com/services/oauth/request_token',
 							    'accessTokenUrl' 	=> 'http://www.flickr.com/services/oauth/access_token',
-							    'authorizeUrl' 	=> 'http://www.flickr.com/services/oauth/authorize'							  
-							  
+							    'authorizeUrl' 	=> 'http://www.flickr.com/services/oauth/authorize',
+							  'requestScheme'        => Zend_Oauth::REQUEST_SCHEME_HEADER,
+							  'version'              => '1.0',
+							  'signatureMethod'      => 'HMAC-SHA1'							  
 							);		
 		}
 		catch ( Zend_Gdata_App_Exception $ex ) {
@@ -96,7 +86,7 @@ class CWS_FlickrAdmin {
 			
 			return;
 		}
-
+	
 		try{
 			$this->consumer = new Zend_Oauth_Consumer( $this->oauth_options );
 		}
@@ -104,25 +94,26 @@ class CWS_FlickrAdmin {
 			$this->errors[] =  $ex->getMessage();		
 			error_log( 'Error: ' . $ex );
 		}
-    }
+	}
+ 
  
 	/**
 	 *
 	 * Check if we are already authenticated.
 	 *
 	 */
-    function is_authenticated() {
-    	if( $this->debug ) error_log( 'Inside: CWS_Flickr::is_authenticated()' );
-    	
-    	// If not empty assume we are authenticated.
-    	$this->access_token = $this->get_access_token();
-    	
-    	if( ! empty( $this->access_token ) ) return TRUE;
-    	
-    	// Create request token
-    	// TODO: put hook check here to make sure we are on out plugin page so we play nicely with other plugins using OAuth (Yoast, Backup to Dropbox etc)
-    	if( empty( $request_token ) ) {
-    		if( $this->debug ) error_log( 'Inside: CWS_FlickrAdmin::is_authenticated() - $request_token is empty.' );
+	function is_authenticated() {
+		if( $this->debug ) error_log( 'Inside: CWS_Flickr::is_authenticated()' );
+		
+		// If not empty assume we are authenticated.
+		$this->access_token = $this->get_access_token();
+		
+		if( ! empty( $this->access_token ) ) return TRUE;
+		
+		// Create request token
+		// TODO: put hook check here to make sure we are on out plugin page so we play nicely with other plugins using OAuth (Yoast, Backup to Dropbox etc)
+		if( empty( $request_token ) ) {
+			if( $this->debug ) error_log( 'Inside: CWS_FlickrAdmin::is_authenticated() - $request_token is empty.' );
 			
 			$request_token = $this->generate_request_token();
 			
@@ -130,9 +121,10 @@ class CWS_FlickrAdmin {
 				// Save in database
 				update_option( 'CWS_FLICKR_REQUEST_TOKEN', $request_token );
 			}    	
-    	}
-    	return FALSE;
-    }
+		}
+		return FALSE;
+	}
+
 
 	/**
 	*
@@ -142,6 +134,7 @@ class CWS_FlickrAdmin {
 	function get_request_token() {
 		return $this->request_token;
 	}
+
 	
 	/**
 	*
@@ -151,6 +144,7 @@ class CWS_FlickrAdmin {
 	function get_access_token() {
 		return $this->access_token;
 	}
+ 
  
  	/**
 	 *
