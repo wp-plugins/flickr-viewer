@@ -358,6 +358,8 @@ class CWS_FlickrApi extends Zend_Service_Flickr {
 	            // TODO: make this user configurable...
 	            'per_page'		=> "$per_page", // TODO: take this out for random...
 	            'page'		=> $cws_page,
+	            'media' 		=> 'photo',
+
 	        );
 	        
 	        
