@@ -84,7 +84,7 @@ function cws_flickr_options_page() {
 
  				$WPFlickr = new CWS_WPFlickr();
 
-				// Check if we need to authenticate before displaying options form...
+				// Check if we have any errors before displaying options form...
 				$cws_FlickrAdmin = new CWS_FlickrAdmin( $WPFlickr->preflight_errors );
 				
 			if( ! $WPFlickr->preflight_errors ) {			

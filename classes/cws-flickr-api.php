@@ -279,7 +279,7 @@ class CWS_FlickrApi extends Zend_Service_Flickr {
 					
 			// $image = $flickr->getImageDetails( $recent_image->id );
 			// echo '<pre>';
-			// print_r( $recent_image );
+			// print_r( $image );
 			// echo '</pre>';			
 			// echo "size = $size";
 			$html[] =  '<div class="boxy">';
@@ -359,7 +359,6 @@ class CWS_FlickrApi extends Zend_Service_Flickr {
 	            'per_page'		=> "$per_page", // TODO: take this out for random...
 	            'page'		=> $cws_page,
 	            'media' 		=> 'photo',
-
 	        );
 	        
 	        
@@ -518,7 +517,7 @@ class CWS_FlickrApi extends Zend_Service_Flickr {
 		// Grab random key
 		$rand_key = array_rand( $my_photo_set_array, 1 );
 				
-		$html[] =  "<img src='" . $my_photo_set_array[ $rand_key ] . 
+		$html[] =  "<img class=\"cws_fv\" src='" . $my_photo_set_array[ $rand_key ] . 
 				"' width='" .
 					$photo->$size->width . "' height='" .
 					$photo->$size->height . "' />";

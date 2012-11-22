@@ -56,7 +56,6 @@ class CWS_WPFlickr {
 	 *
 	 * Let's get this party started!
 	 */
-    	// function __construct( $is_pro ) 
     	function __construct( ) 
     	{	
 		if( $this->debug ) error_log( 'Inside: CWS_WPFlickr::__construct()' );
@@ -174,7 +173,8 @@ class CWS_WPFlickr {
 					
 			// Pro Classes
 			// if( $this->is_pro == TRUE ) {
-			if( $this->is_pro_check() ) {
+			// if( $this->is_pro_check() ) {
+			if( WPFLICKR_ISPRO === TRUE ) {
 				include_once( 'classes/pro/cws-flickr-pro-api.php' );	
 				include_once( 'shortcodes/pro/shortcode-pro-init.php' );			// Init the shortcodes
 				include_once( 'widgets/pro/widget-pro-init.php' );				// Widget classes	

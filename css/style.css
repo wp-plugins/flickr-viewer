@@ -57,6 +57,24 @@
 	margin-bottom: 0;
 }
 
+
+.widget_randomphoto img, img.cws_fv 
+{
+    	border: 1px solid #C2C2C2;
+    	margin: 5px;
+	padding: 5px;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset; 
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset; 
+}
+
+
+
+
+
+
+
 /* ---------------------------------------
 	Pagination
 --------------------------------------- */
@@ -414,8 +432,16 @@ ul.pb-strip li img {
 
 
 
-
-
+.widget_randomphoto img
+{
+    border: 1px solid #C2C2C2;
+    margin: 5px;
+    padding: 5px;
+	background: #fff;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset; 
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset; 
+}
 
 
 
